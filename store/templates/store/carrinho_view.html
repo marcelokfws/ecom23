@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Carrinho{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4 text-2xl">Nosso Carrinho</h1>
+    {% for item in carrinho %}
+        <div class="mb-2 py-4 px-4 bg-orange-100 text-2xl flex items-center">
+
+            <div class="">
+                <img src="{{item.product.get_thumbnail}}" alt=""> 
+            </div>
+
+            <div clas="pl-6">
+
+                <div class="px-8 py-4 flex">{{item.product.title}}</div>
+                <div class="px-8 py-4 flex text-blue-800">{{item.product.get_display_price}}</div>
+
+                <div class="mt-4 mb-4 px-8 py-4 flex">
+                    <a href="{% url 'change_quantity' item.product.id %}?action=increase"class="p-2 rounded-xl bg-green-500 text-white">+</a>
+                    <a href="{% url 'change_quantity' item.product.id %}?action=decrease"class="p-2 rounded-xl bg-red-500 text-white">-</a>
+                    <div class="px-8 py-4 flex text-blue-800">Quantidade: {{item.quantity}}</div>
+                </div>
+                
+                <a href="{% url 'remove_from_carrinho' item.product.id %}">
+                    <div class="px-8 py-4 flex">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" fill="red" viewBox="0 0 448 512"><path d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"/></svg>Remover
+                    </div>
+                </a>
+            </div>
+        </div>
+        <br>
+    {% endfor %}
+    <hr class="mt-4 bm-4">
+    <strong class="mb-2 py-4 px-4 bg-orange-100 text-2xl">Valor total: R$ {{carrinho.get_total_custo}}</strong>
+    <hr class="mt-4 bm-4">
+    {% endblock  %}

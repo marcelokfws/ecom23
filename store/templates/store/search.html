@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Pesquisar{% endblock %}
+
+{% block content %}
+
+<h1 class='text-2xl'>Pesquisar</h1>
+<h2 class='text-2xl text-green-600'>Pesquisa de produtos "{{query}}" : </h2>
+{% if products  %}
+    {% include 'store/partials/products.html' %}
+        
+{% else %}
+    <hr>
+    <br>
+    <h1>Não foram encontrados produtos com as descrições digitadas</h1>
+{% endif %}
+{% endblock  %}
