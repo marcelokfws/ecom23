@@ -3,7 +3,7 @@
 {% block title %}Comprar{% endblock %}
 
 {% block content %}
-<script type="application/javascript" src="https://js.stripe.com/v3/"></script>
+
 <h1 class="mb-6 text-2xl text-green-800">Valor a Pagar</h1>
 <h2 class="text-xl text-green-800">Total a Pagar: R$ {{carrinho.get_total_custo}}</h2>
 
@@ -14,7 +14,7 @@ inline-block px-8 py-4 bg-green-800 text-white rounded text-2xl mt-2" onclick="c
 {% endblock %}
 
 {% block scripts %}
-
+<script type="application/javascript" src="https://js.stripe.com/v3/"></script>
 
 <script>
 
@@ -25,6 +25,7 @@ inline-block px-8 py-4 bg-green-800 text-white rounded text-2xl mt-2" onclick="c
             's_name': document.getElementById('id_s_name').value,
             'adress': document.getElementById('id_adress').value,
             'zip_numero': document.getElementById('id_zip_numero').value,
+            'city': document.getElementById('id_city').value,
 
 
         }
@@ -34,10 +35,10 @@ inline-block px-8 py-4 bg-green-800 text-white rounded text-2xl mt-2" onclick="c
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CRSF_TOKEN': '{{ crsf_token }}'
+                'X-CSRF_TOKEN': '{{ csrf_token }}'
             },
             credentials: 'same-origin',
-            body: JSON.stringify(data)
+            body: JSON.stringify({ data })
         })
             .then(function (response) {
                 return response.json()
@@ -53,6 +54,8 @@ inline-block px-8 py-4 bg-green-800 text-white rounded text-2xl mt-2" onclick="c
             .catch(function (error) {
                 alert(error)
             });
+
+
         return false;
     };
 

@@ -59,6 +59,7 @@ def checar_comprar(request):
                 'price_data': {
                     'currency': 'usd',
                     'product_data': {
+
                         'name': product.title,
                     },
                     'unit_amount': product.price
@@ -70,7 +71,7 @@ def checar_comprar(request):
             session = stripe.checkout.Session.create(
                 payment_method_types=['card'],
                 line_items=items,
-                mode='payments',
+                mode='payment',
                 success_url='http://127.0.0.1:8000/carrinho/success',
                 cancel_url='http://127.0.0.1:8000/carrinho/',
             )
