@@ -44,7 +44,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'lojas_django_stripe.urls'
 
 STRIPE_PUB_KEY = 'pk_test_51NkysBJQ3dCeptGknaEbnXbQxQgcynomTmg06UGv7Gnwjb3w6IskQ5dR91fHhECwYhSFawc34Im0Q8BiyCZTwDqQ00xkw5sCaP'
-STRIPE_SECRET_KEY = 'sk_test_51NkysBJQ3dCeptGkGIsgrUqJL1jEBF5P4IdpxXDHV0u0jk1hS825Jy2Q2PuCZD0qGFSlEGczWm7fmuQuyaUtm1lS00QF9xXmmm'
+STRIPE_SECRET_KEY = ''
 
 TEMPLATES = [
     {
