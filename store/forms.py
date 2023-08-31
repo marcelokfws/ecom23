@@ -1,6 +1,14 @@
 from django import forms
 
-from .models import Product
+from .models import Order, Product
+
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ()  # ('p_name', 's_name', 'adress', 'zip_number', 'city',)
+        # 'valor_custo', 'esta_pago', 'payment_intent', 'criado_por',
+        # 'created_at')
 
 
 class ProductForm(forms.ModelForm):

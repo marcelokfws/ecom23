@@ -42,6 +42,10 @@ class Carrinho(object):
 
         self.save()
 
+    def clear(self):
+        del self.session[settings.CARRINHO_SESSION_ID]
+        self.session.modified = True
+
     def remove(self, product_id):
         if product_id in self.carrinho:
             del self.carrinho[product_id]

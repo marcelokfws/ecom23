@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<h1 class='text-2xl'>Página de minha Loja</h1>
+<h1 class='text-2xl mt-2 '>Página de minha Loja</h1>
 
 {% if messages %}
 
@@ -15,8 +15,49 @@
     {% endfor %}
 
 {% endif %}
+<hr>
+<h1 class='text-2xl mt-2 '>Meus Pedidos</h1>
 
-<a href="{% url 'add_product' %}" class='mt-6 inline-block py-4 px-8 bg-green-500 text-white'>Adicionar Produto</a>
+<div class="flex flex-wrap mt-2 ">
+    <div class="w-1/4">
+        <strong><a href="{% url 'my_store'%}">Produto ID:</a></strong>
+    </div>
+    <div class="w-1/4">
+        <strong> Descrição do Produto:</strong>
+    </div>
+    <div class="w-1/4">
+        <strong>Quantidade:</strong>
+    </div>
+    <div class="w-1/4">
+        <strong>Preço:</strong>
+    </div>
+</div>
+
+{% for order_item in order_items %}
+    <div class="flex flex-wrap mt-2 ">
+        <div class="w-1/4">
+            <p>
+                <button class="px-1 py-1 bg-green-600 rounded-xl font-bold text-xl text-white">
+                    <a href="{% url 'my_store_pedido_detalhe' order_item.pk %}">{{order_item.pk}}</a>
+                </button>
+            </p>
+        </div>
+        <div class="w-1/4">
+            <strong>{{order_item.product.title}}</strong>
+        </div>
+
+        <div class="w-1/4">
+            <strong>{{order_item.quantity}}</strong>
+        </div>
+        <div class="w-1/4">
+            <strong>{{order_item.get_total_price}}</strong>
+        </div>
+    </div>
+{% endfor %}
+
+<hr>
+<a href="{% url 'add_product' %}" class='
+mt-6 inline-block py-4 px-8 bg-green-500 text-white rounded-xl text-2xl'>Adicionar Produto</a>
 <h2 class='mt-6 text-xl'>Meus Produtos</h2>
 
 {% if products %}

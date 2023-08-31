@@ -27,7 +27,7 @@ class Product(models.Model):
     ESTATUS_ESCOLHA = (
         (RASCUNHO, 'Rascunho'),
         (ESPERAR_APROVACAO, 'Esperando aprovação'),
-        (ATIVAR, 'Ativado'),
+        (ATIVAR, 'Ativo'),
         (DELETADO, 'Deletado')
     )
     user = models.ForeignKey(
@@ -78,3 +78,30 @@ class Product(models.Model):
         name = image.name.replace('uploads/products_images/', '')
         thumbnail = File(thumb_io, name=name)
         return thumbnail
+
+
+class Order(models.Model):
+    p_name = models.CharField(max_length=255)
+    s_name = models.CharField(max_length=255)
+    adress = models.CharField(max_length=255)
+    zip_number = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    valor_custo = models.IntegerField(blank=True, null=True)
+    esta_pago = models.BooleanField(default=False)
+    payment_intent = models.CharField(max_length=255)
+    criado_por = models.ForeignKey(
+        User, related_name='orders', on_delete=models.SET_NULL,
+        null=True)
+    created_at = models.DateTimeField()
+
+
+class OrderItem(models.Model):
+    user = models.ForeignKey(
+        Order, related_name="items", on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        Product, related_name="items", on_delete=models.CASCADE)
+    price = models.IntegerField()
+    quantity = models.IntegerField(default=1)
+
+    def get_total_price(self):
+        return (f'R${self.price:.2f}').replace('.', ',')

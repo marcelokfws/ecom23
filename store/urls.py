@@ -7,6 +7,7 @@ urlpatterns = [
     path('add_to_carrinho/<int:product_id>/',
          views.add_to_carrinho, name='add_to_carrinho'),
     path('cart/', views.carrinho_view, name='carrinho_view'),
+    path('cart/checar_comprar/', views.checar_comprar, name='checar_comprar'),
     path('remove/<str:product_id>/',
          views.remove_from_carrinho, name='remove_from_carrinho'),
     path('change_quantity/<str:product_id>/',
@@ -14,6 +15,7 @@ urlpatterns = [
     path('<slug:slug>/', views.category_details, name='category_details'),
     path('<slug:category_slug>/<slug:slug>/',
          views.products_details, name='products_details'),
+    
 
 
 ]

@@ -3,11 +3,11 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.text import slugify
 
 from store.forms import ProductForm
-from store.models import Product
+from store.models import Order, OrderItem, Product
 
 from .models import Userprofile
 
@@ -23,7 +23,16 @@ def vendor_details(request, pk):
 @login_required
 def my_store(request):
     products = request.user.products.exclude(status=Product.DELETADO)
-    return render(request, 'userprofile/my_store.html', {'products': products})
+    order_items = OrderItem.objects.filter(product__user=request.user)
+    return render(request, 'userprofile/my_store.html', {
+        'products': products, 'order_items': order_items})
+
+
+@login_required
+def my_store_pedido_detalhe(request, pk):
+    order = get_object_or_404(Order)
+    return render(request, 'userprofile/my_store_pedido_detalhe.html',
+                  {'order': order})
 
 
 @login_required
@@ -89,7 +98,7 @@ def cadastrar(request):
             login(request, user)
             userprofile = Userprofile.objects.create(user=user)
 
-            return redirect('home')
+            return redirect('home', {'userprofile': userprofile})
 
     else:
         form = UserCreationForm()
